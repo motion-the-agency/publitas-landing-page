@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+/* Brand tokens from the Publitas deck: "Sky, not flat blue". Navy is for type,
+   the blues carry surfaces, and the phase colours (blue, yellow, green) mark the timeline. */
+@theme {
+  --color-navy: #043460;
+  --color-ink: #15345d;
+  --color-royal: #0a5fd0;
+  --color-blue: #086bc6;
+  --color-sky: #19b0ed;
+  --color-cyan: #7fd6f7;
+  --color-mist: #d9f0fb;
+  --color-ice: #eef8fd;
+  --color-paper: #f5fbff;
+  --color-slate: #43607f;
+  --color-teaser: #19b0ed;
+  --color-pilot: #f2bf1f;
+  --color-launch: #3f9d72;
+  --color-pink: #e8507e;
+  --color-orange: #f0913a;
+
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-clash), var(--font-montserrat), ui-sans-serif, sans-serif;
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes float {
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-navy);
+}
+
+::selection {
+  background: var(--color-sky);
+  color: white;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-pilot);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* The deck's recurring motif: translucent blue tiles on a light sky. */
+.sky-tiles {
+  background-image:
+    linear-gradient(to right, rgb(25 176 237 / 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(25 176 237 / 0.08) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+/* The deck's sky: pale cyan with white haze, never saturated royal blue. */
+.sky-vivid {
+  background:
+    radial-gradient(55% 60% at 18% 12%, rgb(255 255 255 / 0.85), transparent 60%),
+    radial-gradient(45% 50% at 88% 90%, rgb(255 255 255 / 0.5), transparent 62%),
+    radial-gradient(60% 70% at 95% 10%, rgb(108 200 240 / 0.55), transparent 65%),
+    linear-gradient(160deg, #e3f5fd 0%, #bfe7f9 40%, #95d7f4 75%, #73c9f0 100%);
+}
+
+/* Prism light: the "touch of rainbow" that brings in the secondary colours.
+   Screen blending adds light instead of mixing pigment, so the hues stay clean pastels on pale sky
+   rather than averaging into grey. Green is left out for the same reason. */
+.prism {
+  background: conic-gradient(
+    from 210deg,
+    rgb(255 214 64 / 0.9),
+    rgb(255 150 190 / 0.85),
+    rgb(170 150 255 / 0.7),
+    rgb(120 220 255 / 0.9),
+    rgb(255 214 64 / 0.9)
+  );
+  filter: blur(36px) saturate(1.3);
+  mix-blend-mode: screen;
+}
+
+/* Prism for blue surfaces: pink, lavender and cyan mix cleanly with sky blue, where yellow turns olive. */
+.prism-cool {
+  background: conic-gradient(
+    from 200deg,
+    rgb(255 255 255 / 0.95),
+    rgb(255 160 200 / 0.75),
+    rgb(185 165 255 / 0.7),
+    rgb(110 215 255 / 0.85),
+    rgb(255 255 255 / 0.95)
+  );
+  filter: blur(34px) saturate(1.25);
+}
+
+/* Backdrop blur goes through @apply: hand-written backdrop-filter gets stripped by the CSS pipeline. */
+@utility glass {
+  background: rgb(255 255 255 / 0.72);
+  border: 1px solid rgb(255 255 255 / 0.8);
+  @apply backdrop-blur-xl backdrop-saturate-150;
+}
+
+/* The nav floats over the launch, the dome and every section, so it frosts harder than cards do. */
+@utility glass-nav {
+  background: rgb(255 255 255 / 0.5);
+  border: 1px solid rgb(255 255 255 / 0.7);
+  box-shadow:
+    0 10px 30px -12px rgb(4 52 96 / 0.25),
+    inset 0 1px 0 rgb(255 255 255 / 0.8);
+  @apply backdrop-blur-2xl backdrop-saturate-200;
+}
+
+.phase-rule {
+  background: linear-gradient(
+    to right,
+    var(--color-teaser) 0 33.33%,
+    var(--color-pilot) 33.33% 66.66%,
+    var(--color-launch) 66.66% 100%
+  );
+}
+
+.text-shadow-sky {
+  text-shadow:
+    0 1px 2px rgb(4 52 96 / 0.35),
+    0 4px 32px rgb(4 52 96 / 0.45);
+}
+
+.text-glow-paper {
+  text-shadow:
+    0 0 2px rgb(255 255 255 / 0.6),
+    0 2px 28px rgb(242 251 255 / 0.85);
+}
+
+/* Animated film grain: an SVG noise tile jittered every few frames. */
+.film-grain {
+  position: absolute;
+  inset: -50%;
+  pointer-events: none;
+  opacity: 0.28;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='2 0 0 0 -0.5 2 0 0 0 -0.5 2 0 0 0 -0.5 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 2.4s steps(5) infinite;
+}
+
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-6%, 4%); }
+  40% { transform: translate(5%, -7%); }
+  60% { transform: translate(-3%, 8%); }
+  80% { transform: translate(7%, 2%); }
+  100% { transform: translate(0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-float,
+  .film-grain {
+    animation: none;
+  }
+}
