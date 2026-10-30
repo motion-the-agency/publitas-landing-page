@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a4a86"/>
+      <stop offset="1" stop-color="#043460"/>
+    </linearGradient>
+    <linearGradient id="trail" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7fd6f7"/>
+      <stop offset="1" stop-color="#19b0ed" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#bg)"/>
+  <!-- exhaust trail -->
+  <path d="M28.6 40h6.8L33.4 60h-2.8z" fill="url(#trail)"/>
+  <!-- rocket -->
+  <path d="M32 6c4.6 4.4 6.6 10.6 6.6 18.4V38H25.4V24.4C25.4 16.6 27.4 10.4 32 6z" fill="#fff"/>
+  <circle cx="32" cy="22" r="3.2" fill="#19b0ed"/>
+  <path d="M25.4 29l-5 5.2V42l5-3zM38.6 29l5 5.2V42l-5-3z" fill="#19b0ed"/>
+  <path d="M29 38h6l-1 4h-4z" fill="#f2bf1f"/>
+</svg>
